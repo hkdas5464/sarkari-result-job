@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { motion } from 'framer-motion';
 import { Card, CardContent } from '@/components/ui/card';
@@ -8,7 +8,25 @@ import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 
-const updateTypes = {
+// Define a type for the update objects
+interface Update {
+  id: number;
+  title: string;
+  date: string;
+  isNew?: boolean;
+  isUrgent?: boolean;
+}
+
+// Define the shape of updateTypes
+interface UpdateTypes {
+  results: Update[];
+  admitCards: Update[];
+  answerKeys: Update[];
+  importantDates: Update[];
+  syllabus: Update[];
+}
+
+const updateTypes: UpdateTypes = {
   results: [
     { id: 1, title: 'UPSC CSE 2024 Final Result', date: 'March 15, 2025', isNew: true },
     { id: 2, title: 'SSC CGL 2024 Tier II Result', date: 'March 10, 2025', isNew: true },
@@ -75,7 +93,7 @@ export default function LatestUpdates() {
         </TabsTrigger>
       </TabsList>
 
-      {Object.entries(updateTypes).map(([tabKey, updates]) => (
+      {Object.entries(updateTypes).map(([tabKey, updates]: [string, Update[]]) => (
         <TabsContent key={tabKey} value={tabKey} className="m-0">
           <div className="grid grid-cols-1">
             <Card>
